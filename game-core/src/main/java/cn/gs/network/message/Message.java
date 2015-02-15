@@ -1,5 +1,7 @@
 package cn.gs.network.message;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 /**
  * @copyright SHENZHEN RONG WANG HUI ZHI TECHNOLOGY CORP
  * @author Lyon.liao
@@ -11,6 +13,10 @@ package cn.gs.network.message;
  */
 public class Message implements IMessage {
 
+	private int size;
+	private int cmd;
+	private byte[] data;
+	
 	private Message(int size, int cmd, byte[] data) {
 		
 	}
@@ -19,25 +25,28 @@ public class Message implements IMessage {
 	}
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public int cmd() {
-		// TODO Auto-generated method stub
-		return 0;
+		return cmd;
 	}
 
 	@Override
 	public int pid() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T parseBody(Class<? extends com.google.protobuf.Message> clazz) {
-		// TODO Auto-generated method stub
+	public <T> T parseBody(Class<? extends com.google.protobuf.Message> clazz) throws InvalidProtocolBufferException {
+		try {
+			T t = (T)clazz.newInstance().getParserForType().parseFrom(data);
+			return t;
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

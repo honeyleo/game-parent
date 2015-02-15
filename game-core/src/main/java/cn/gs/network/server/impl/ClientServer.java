@@ -66,7 +66,7 @@ public abstract class ClientServer extends Server implements IServer {
 	public void run() {
 		super.run();
 		EventLoopGroup workerGroup = new NioEventLoopGroup(4,
-				new DefaultThreadFactory("ClientServer"));
+				new DefaultThreadFactory("Netty-Worker-Thread"));
 		Bootstrap bootstrap = new Bootstrap();
 		final IServer server = this;
 		try {

@@ -10,6 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.DefaultThreadFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,8 +108,8 @@ public abstract class NettyServer extends Server implements IServer {
 		@Override
 		public void run() {
 			int port = NettyServer.this.port;
-			EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-			EventLoopGroup workerGroup = new NioEventLoopGroup(2);
+			EventLoopGroup bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("Boss-Thread"));
+			EventLoopGroup workerGroup = new NioEventLoopGroup(2, new DefaultThreadFactory("Netty-Worker-Thread"));
 			
 			try {
 				ServerBootstrap serverBootstrap = new ServerBootstrap();

@@ -13,6 +13,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.util.concurrent.DefaultThreadFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,8 +107,8 @@ public abstract class InnerServer extends Server implements IServer {
 		}
 		@Override
 		public void run() {
-			EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-			EventLoopGroup workerGroup = new NioEventLoopGroup(4);
+			EventLoopGroup bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("Boss-Thread"));
+			EventLoopGroup workerGroup = new NioEventLoopGroup(4, new DefaultThreadFactory("Netty-Worker-Thread"));
 			
 			try {
 				ServerBootstrap serverBootstrap = new ServerBootstrap();

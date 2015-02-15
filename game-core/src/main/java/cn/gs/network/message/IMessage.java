@@ -1,5 +1,6 @@
 package cn.gs.network.message;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 
 /**
@@ -33,5 +34,5 @@ public interface IMessage {
 	 * @param clazz
 	 * @return
 	 */
-	<T> T parseBody(Class<? extends  Message> clazz);
+	<T> T parseBody(Class<? extends  Message> clazz) throws InvalidProtocolBufferException;
 }
