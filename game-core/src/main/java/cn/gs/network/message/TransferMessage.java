@@ -1,8 +1,9 @@
 package cn.gs.network.message;
 
-import cn.gs.network.message.PBMessagePro.PBMessage;
+import com.google.protobuf.ByteString;
 
-import com.google.protobuf.Message;
+import io.netty.channel.Channel;
+import cn.gs.network.message.PBMessagePro.PBMessage;
 
 /**
  * @copyright SHENZHEN RONG WANG HUI ZHI TECHNOLOGY CORP
@@ -13,37 +14,22 @@ import com.google.protobuf.Message;
  * 最后修改时间：2015年2月13日
  * 修改内容： 新建此类
  */
-public class TransferMessage implements IMessage {
-
-	public TransferMessage(PBMessage pbMessage) {
-		
-	}
-	
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+public class TransferMessage extends AbstractMessage implements IMessage {
 
 	
-	@Override
-	public int cmd() {
-		// TODO Auto-generated method stub
-		return 0;
+	protected TransferMessage(Channel channel, PBMessage pbMessage) {
+		super(0, pbMessage.getCmd(), pbMessage.getData().toByteArray(), channel);
 	}
-
 	
-	@Override
-	public int pid() {
-		// TODO Auto-generated method stub
-		return 0;
+	public static IMessage transfer(PBMessage pbMessage, Channel channel) {
+		return new TransferMessage(channel, pbMessage);
 	}
-
 	
-	@Override
-	public <T> T parseBody(Class<? extends Message> clazz) {
-		// TODO Auto-generated method stub
-		return null;
+	public static PBMessage transfer(IMessage message) {
+		PBMessage.Builder builder = PBMessage.newBuilder();
+		builder.setCmd(message.cmd()).setId(String.valueOf(message.pid()))
+				.setData(ByteString.copyFrom(message.data()));
+		return builder.build();
 	}
-
+	
 }

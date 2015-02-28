@@ -1,5 +1,7 @@
 package cn.gs.network.message;
 
+import io.netty.channel.Channel;
+
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 
@@ -25,10 +27,20 @@ public interface IMessage {
 	 */
 	int cmd();
 	/**
+	 * 消息体字节流
+	 * @return
+	 */
+	byte[] data();
+	/**
 	 * 玩家ID
 	 * @return
 	 */
 	int pid();
+	/**
+	 * 该消息通道
+	 * @return
+	 */
+	Channel channel();
 	/**
 	 * 包体
 	 * @param clazz

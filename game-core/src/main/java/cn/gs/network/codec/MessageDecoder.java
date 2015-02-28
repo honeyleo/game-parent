@@ -105,7 +105,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         
         byte[] bytes = new byte[size - 4];
         buffer.readBytes(bytes);
-        IMessage message = Message.build(size, msgId, bytes);
+        IMessage message = Message.build(size, msgId, bytes, ctx.channel());
         ctx.fireChannelRead(message);
 		return null;
 	}
