@@ -20,7 +20,7 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 	private Lock lock = new ReentrantLock();
 
 	public LRULinkedHashMap(int max) {
-		super(16, 0.75F, true);
+		super(max, 0.75F, true);
 		this.max = max;
 	}
 

@@ -21,17 +21,44 @@ public class CacheTest {
 		}
 		
 	}
+	
+	public static class Task implements Runnable {
+
+		private int start;
+		private int end;
+		
+		public Task(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+		@Override
+		public void run() {
+			for(int i = start ; i < end; i ++) {
+				int id = i;
+				Player player = new CacheTest.Player(id);
+				players.put(id, player);
+			}
+		}
+		
+	}
 	private static MemoryCache<Integer, Player> players = new MemoryCache<Integer, Player>();
 	public static void main(String[] args) {
-		for(int i = 0 ; i < 6000; i ++) {
-			int id = i + 1;
-			Player player = new CacheTest.Player(id);
-			players.put(id, player);
+		Thread t1 = new Thread(new Task(0, 2000));
+		Thread t2 = new Thread(new Task(2000, 4000));
+		Thread t3 = new Thread(new Task(4000, 6000));
+		t1.start();
+		t2.start();
+		t3.start();
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		} catch(InterruptedException e) {
+			e.printStackTrace();
 		}
-		players.put(3000, new Player(1000));
-		System.out.println(players.get(2000));
+		System.out.println(players.get(2998));
 		
-		System.out.println(players);
+		System.out.println(players.getCache().size());
 	}
 
 }
