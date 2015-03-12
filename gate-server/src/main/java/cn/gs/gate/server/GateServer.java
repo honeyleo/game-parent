@@ -2,6 +2,18 @@ package cn.gs.gate.server;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import cn.gs.disruptor.Disruptor;
+import cn.gs.disruptor.MultiThreadDisruptor;
+import cn.gs.gate.HandlerMgr;
+import cn.gs.gate.Player;
+import cn.gs.gate.player.manager.PlayerManager;
+import cn.gs.gate.utils.MessageUtil;
+import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.PBMessagePro.PBMessage;
 import cn.gs.network.server.impl.ClientServer;
@@ -32,7 +44,14 @@ public class GateServer extends NettyServer {
 	private static final String defaultInnerServerConfig="server-config/inner-server-config.xml";
 	//默认内部客户服务器配置文件
 	private static final String defaultClientServerConfig="server-config/client-server-config.xml";
+	
+	//GameServer通信列表
+	private static ConcurrentHashMap<Integer, List<Channel>> gameChannels = new ConcurrentHashMap<Integer, List<Channel>>();
 		
+	private static final ConcurrentHashMap<Integer, Channel> players_channels = new ConcurrentHashMap<Integer, Channel>();
+	
+	private static Disruptor handlerDisruptor = new MultiThreadDisruptor("Handler_Worker_", 20);
+	
 	public GateServer(){
 		this(defaultMinaServerConfig, defaultInnerServerConfig, defaultClientServerConfig);
 	}
@@ -67,10 +86,59 @@ public class GateServer extends NettyServer {
 		new Thread(innerServer).start();
 		new Thread(clientServer).start();
 	}
+	
+	/**
+	 * 游戏服务器注册
+	 * @param id 游戏服务器编号
+	 * @param channel 通讯接口
+	 */
+	public synchronized void registerGameServer(int id, Channel channel){
+		synchronized (gameChannels) {
+			List<Channel> channels = gameChannels.get(id);
+			if(channels==null){
+				channels = new ArrayList<Channel>();
+				gameChannels.put(id, channels);
+			}
+			channels.add(channel);	
+		}
+	}
+	
+	/**
+	 * 获得与游戏服务器通讯channel
+	 * @return
+	 */
+	public List<Channel> getGameChannel(int server){
+		return gameChannels.get(server);
+	}
+	
+	/**
+	 * 注册玩家
+	 * @param pid
+	 * @param channel
+	 */
+	public void registerPlayerChannel(int pid, Channel channel) {
+		synchronized (channel) {
+			players_channels.put(pid, channel);
+		}
+	}
 	@Override
-	public void handle(ChannelHandlerContext ctx, IMessage message) {
-		// TODO Auto-generated method stub
-		
+	public void handle(ChannelHandlerContext ctx, final IMessage message) {
+		final Handler handler = HandlerMgr.getHandler(message.cmd());
+		if(handler != null) {
+			handlerDisruptor.publish(new Runnable() {
+				
+				@Override
+				public void run() {
+					handler.handle(message);
+				}
+			});
+		} else {
+			Player player = PlayerManager.getPlayer(message.pid());
+			if(player != null) {
+				int serverId = player.serverId;
+				MessageUtil.send_to_game(serverId, message);
+			}
+		}
 	}
 
 	@Override

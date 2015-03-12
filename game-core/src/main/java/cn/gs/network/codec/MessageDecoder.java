@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.Message;
-import cn.gs.network.util.CheckSumStream;
+import cn.gs.network.utils.CheckSumStream;
 
 /**
  * @copyright SHENZHEN RONG WANG HUI ZHI TECHNOLOGY CORP
@@ -18,6 +18,7 @@ import cn.gs.network.util.CheckSumStream;
  */
 public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 
+	private volatile int pid;
 	/**
 	 * 校验包
 	 */
@@ -105,7 +106,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         
         byte[] bytes = new byte[size - 4];
         buffer.readBytes(bytes);
-        IMessage message = Message.build(size, msgId, bytes, ctx.channel());
+        IMessage message = Message.build(size, msgId, bytes, ctx.channel(), pid);
         ctx.fireChannelRead(message);
 		return null;
 	}

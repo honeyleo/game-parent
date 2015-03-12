@@ -10,12 +10,14 @@ public abstract class AbstractMessage implements IMessage {
 	private int cmd;
 	private byte[] data;
 	private Channel channel;
+	private int pid;
 	
-	protected AbstractMessage(int size, int cmd, byte[] data, Channel channel) {
+	protected AbstractMessage(int size, int cmd, byte[] data, Channel channel, int pid) {
 		this.size = size;
 		this.cmd = cmd;
 		this.data = data;
 		this.channel = channel;
+		this.pid = pid;
 	}
 	
 	@Override
@@ -37,7 +39,7 @@ public abstract class AbstractMessage implements IMessage {
 	
 	@Override
 	public int pid() {
-		return 0;
+		return pid;
 	}
 
 	@Override

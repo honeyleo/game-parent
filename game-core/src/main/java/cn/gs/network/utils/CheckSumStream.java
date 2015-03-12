@@ -1,4 +1,4 @@
-package cn.gs.network.util;
+package cn.gs.network.utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
