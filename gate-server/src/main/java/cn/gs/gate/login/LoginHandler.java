@@ -1,5 +1,6 @@
 package cn.gs.gate.login;
 
+import io.netty.util.AttributeKey;
 import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
 
@@ -16,7 +17,10 @@ public class LoginHandler implements Handler {
 
 	@Override
 	public void handle(IMessage message) {
-		
+		//解包出来验证玩家登录
+		int pid = 0;
+		AttributeKey<Integer> key = AttributeKey.valueOf(String.valueOf(message.channel().hashCode()));
+		message.channel().attr(key).set(pid);
 	}
 
 }

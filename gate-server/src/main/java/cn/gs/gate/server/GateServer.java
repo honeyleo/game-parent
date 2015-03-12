@@ -16,6 +16,7 @@ import cn.gs.gate.utils.MessageUtil;
 import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.PBMessagePro.PBMessage;
+import cn.gs.network.message.TransferMessage;
 import cn.gs.network.server.impl.ClientServer;
 import cn.gs.network.server.impl.InnerServer;
 import cn.gs.network.server.impl.NettyServer;
@@ -154,8 +155,32 @@ public class GateServer extends NettyServer {
 		}
 
 		@Override
-		public void handle(ChannelHandlerContext ctx, PBMessage pbMessage) {
-			
+		public void handle(final ChannelHandlerContext ctx, final PBMessage pbMessage) {
+			final IMessage message = TransferMessage.transfer(pbMessage, ctx.channel());
+			final Handler handler = HandlerMgr.getHandler(pbMessage.getCmd());
+			if(handler != null) {
+				handlerDisruptor.publish(new Runnable() {
+					
+					@Override
+					public void run() {
+						handler.handle(message);
+					}
+				});
+			} else {
+				//网关服务器没有对应处理器，则可能会是全服通知或者对应玩家
+				if(pbMessage.getPlayerId() == 0) {
+					//通知网关上的所有玩家
+					MessageUtil.tell_world_message(message);
+				} else if(pbMessage.getPlayerIdsCount() > 0) {
+					//通知玩家列表中的所有玩家
+					for(Integer playerId : pbMessage.getPlayerIdsList()) {
+						MessageUtil.tell_player_message(playerId, message);;
+					}
+				} else {
+					//输出消息给玩家
+					MessageUtil.tell_player_message(message.pid(), message);
+				}
+			}
 		}
 		
 	}
@@ -171,7 +196,31 @@ public class GateServer extends NettyServer {
 
 		@Override
 		public void handle(ChannelHandlerContext ctx, PBMessage pbMessage) {
-			// TODO Auto-generated method stub
+			final IMessage message = TransferMessage.transfer(pbMessage, ctx.channel());
+			final Handler handler = HandlerMgr.getHandler(pbMessage.getCmd());
+			if(handler != null) {
+				handlerDisruptor.publish(new Runnable() {
+					
+					@Override
+					public void run() {
+						handler.handle(message);
+					}
+				});
+			} else {
+				//网关服务器没有对应处理器，则可能会是全服通知或者对应玩家
+				if(pbMessage.getPlayerId() == 0) {
+					//通知网关上的所有玩家
+					MessageUtil.tell_world_message(message);
+				} else if(pbMessage.getPlayerIdsCount() > 0) {
+					//通知玩家列表中的所有玩家
+					for(Integer playerId : pbMessage.getPlayerIdsList()) {
+						MessageUtil.tell_player_message(playerId, message);;
+					}
+				} else {
+					//输出消息给玩家
+					MessageUtil.tell_player_message(message.pid(), message);
+				}
+			}
 			
 		}
 

@@ -47,36 +47,41 @@ public final class PBMessagePro {
      */
     int getSeq();
 
-    // optional string id = 3;
+    // optional int32 playerId = 3;
     /**
-     * <code>optional string id = 3;</code>
+     * <code>optional int32 playerId = 3;</code>
      *
      * <pre>
      * ID
      * </pre>
      */
-    boolean hasId();
+    boolean hasPlayerId();
     /**
-     * <code>optional string id = 3;</code>
+     * <code>optional int32 playerId = 3;</code>
      *
      * <pre>
      * ID
      * </pre>
      */
-    java.lang.String getId();
-    /**
-     * <code>optional string id = 3;</code>
-     *
-     * <pre>
-     * ID
-     * </pre>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
+    int getPlayerId();
 
-    // optional int32 status = 4;
+    // repeated int32 playerIds = 4;
     /**
-     * <code>optional int32 status = 4;</code>
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    java.util.List<java.lang.Integer> getPlayerIdsList();
+    /**
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    int getPlayerIdsCount();
+    /**
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    int getPlayerIds(int index);
+
+    // optional int32 status = 5;
+    /**
+     * <code>optional int32 status = 5;</code>
      *
      * <pre>
      * 状态
@@ -84,7 +89,7 @@ public final class PBMessagePro {
      */
     boolean hasStatus();
     /**
-     * <code>optional int32 status = 4;</code>
+     * <code>optional int32 status = 5;</code>
      *
      * <pre>
      * 状态
@@ -92,9 +97,9 @@ public final class PBMessagePro {
      */
     int getStatus();
 
-    // optional bytes data = 5;
+    // optional bytes data = 6;
     /**
-     * <code>optional bytes data = 5;</code>
+     * <code>optional bytes data = 6;</code>
      *
      * <pre>
      * 数据
@@ -102,7 +107,7 @@ public final class PBMessagePro {
      */
     boolean hasData();
     /**
-     * <code>optional bytes data = 5;</code>
+     * <code>optional bytes data = 6;</code>
      *
      * <pre>
      * 数据
@@ -110,9 +115,9 @@ public final class PBMessagePro {
      */
     com.google.protobuf.ByteString getData();
 
-    // optional int32 sid = 6;
+    // optional int32 sid = 7;
     /**
-     * <code>optional int32 sid = 6;</code>
+     * <code>optional int32 sid = 7;</code>
      *
      * <pre>
      * 唯一的SessionId
@@ -120,7 +125,7 @@ public final class PBMessagePro {
      */
     boolean hasSid();
     /**
-     * <code>optional int32 sid = 6;</code>
+     * <code>optional int32 sid = 7;</code>
      *
      * <pre>
      * 唯一的SessionId
@@ -128,9 +133,9 @@ public final class PBMessagePro {
      */
     int getSid();
 
-    // optional bool is_succ = 7;
+    // optional bool is_succ = 8;
     /**
-     * <code>optional bool is_succ = 7;</code>
+     * <code>optional bool is_succ = 8;</code>
      *
      * <pre>
      * 是否成功
@@ -138,7 +143,7 @@ public final class PBMessagePro {
      */
     boolean hasIsSucc();
     /**
-     * <code>optional bool is_succ = 7;</code>
+     * <code>optional bool is_succ = 8;</code>
      *
      * <pre>
      * 是否成功
@@ -146,9 +151,9 @@ public final class PBMessagePro {
      */
     boolean getIsSucc();
 
-    // optional bool is_return = 8 [default = true];
+    // optional bool is_return = 9 [default = true];
     /**
-     * <code>optional bool is_return = 8 [default = true];</code>
+     * <code>optional bool is_return = 9 [default = true];</code>
      *
      * <pre>
      * 是否需要应答
@@ -156,7 +161,7 @@ public final class PBMessagePro {
      */
     boolean hasIsReturn();
     /**
-     * <code>optional bool is_return = 8 [default = true];</code>
+     * <code>optional bool is_return = 9 [default = true];</code>
      *
      * <pre>
      * 是否需要应答
@@ -197,6 +202,7 @@ public final class PBMessagePro {
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -224,32 +230,53 @@ public final class PBMessagePro {
               seq_ = input.readInt32();
               break;
             }
-            case 26: {
+            case 24: {
               bitField0_ |= 0x00000004;
-              id_ = input.readBytes();
+              playerId_ = input.readInt32();
               break;
             }
             case 32: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                playerIds_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              playerIds_.add(input.readInt32());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                playerIds_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                playerIds_.add(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 40: {
               bitField0_ |= 0x00000008;
               status_ = input.readInt32();
               break;
             }
-            case 42: {
+            case 50: {
               bitField0_ |= 0x00000010;
               data_ = input.readBytes();
               break;
             }
-            case 48: {
+            case 56: {
               bitField0_ |= 0x00000020;
               sid_ = input.readInt32();
               break;
             }
-            case 56: {
+            case 64: {
               bitField0_ |= 0x00000040;
               isSucc_ = input.readBool();
               break;
             }
-            case 64: {
+            case 72: {
               bitField0_ |= 0x00000080;
               isReturn_ = input.readBool();
               break;
@@ -262,6 +289,9 @@ public final class PBMessagePro {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          playerIds_ = java.util.Collections.unmodifiableList(playerIds_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -342,66 +372,58 @@ public final class PBMessagePro {
       return seq_;
     }
 
-    // optional string id = 3;
-    public static final int ID_FIELD_NUMBER = 3;
-    private java.lang.Object id_;
+    // optional int32 playerId = 3;
+    public static final int PLAYERID_FIELD_NUMBER = 3;
+    private int playerId_;
     /**
-     * <code>optional string id = 3;</code>
+     * <code>optional int32 playerId = 3;</code>
      *
      * <pre>
      * ID
      * </pre>
      */
-    public boolean hasId() {
+    public boolean hasPlayerId() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string id = 3;</code>
+     * <code>optional int32 playerId = 3;</code>
      *
      * <pre>
      * ID
      * </pre>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          id_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string id = 3;</code>
-     *
-     * <pre>
-     * ID
-     * </pre>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getPlayerId() {
+      return playerId_;
     }
 
-    // optional int32 status = 4;
-    public static final int STATUS_FIELD_NUMBER = 4;
+    // repeated int32 playerIds = 4;
+    public static final int PLAYERIDS_FIELD_NUMBER = 4;
+    private java.util.List<java.lang.Integer> playerIds_;
+    /**
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    public java.util.List<java.lang.Integer>
+        getPlayerIdsList() {
+      return playerIds_;
+    }
+    /**
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    public int getPlayerIdsCount() {
+      return playerIds_.size();
+    }
+    /**
+     * <code>repeated int32 playerIds = 4;</code>
+     */
+    public int getPlayerIds(int index) {
+      return playerIds_.get(index);
+    }
+
+    // optional int32 status = 5;
+    public static final int STATUS_FIELD_NUMBER = 5;
     private int status_;
     /**
-     * <code>optional int32 status = 4;</code>
+     * <code>optional int32 status = 5;</code>
      *
      * <pre>
      * 状态
@@ -411,7 +433,7 @@ public final class PBMessagePro {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int32 status = 4;</code>
+     * <code>optional int32 status = 5;</code>
      *
      * <pre>
      * 状态
@@ -421,11 +443,11 @@ public final class PBMessagePro {
       return status_;
     }
 
-    // optional bytes data = 5;
-    public static final int DATA_FIELD_NUMBER = 5;
+    // optional bytes data = 6;
+    public static final int DATA_FIELD_NUMBER = 6;
     private com.google.protobuf.ByteString data_;
     /**
-     * <code>optional bytes data = 5;</code>
+     * <code>optional bytes data = 6;</code>
      *
      * <pre>
      * 数据
@@ -435,7 +457,7 @@ public final class PBMessagePro {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional bytes data = 5;</code>
+     * <code>optional bytes data = 6;</code>
      *
      * <pre>
      * 数据
@@ -445,11 +467,11 @@ public final class PBMessagePro {
       return data_;
     }
 
-    // optional int32 sid = 6;
-    public static final int SID_FIELD_NUMBER = 6;
+    // optional int32 sid = 7;
+    public static final int SID_FIELD_NUMBER = 7;
     private int sid_;
     /**
-     * <code>optional int32 sid = 6;</code>
+     * <code>optional int32 sid = 7;</code>
      *
      * <pre>
      * 唯一的SessionId
@@ -459,7 +481,7 @@ public final class PBMessagePro {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional int32 sid = 6;</code>
+     * <code>optional int32 sid = 7;</code>
      *
      * <pre>
      * 唯一的SessionId
@@ -469,11 +491,11 @@ public final class PBMessagePro {
       return sid_;
     }
 
-    // optional bool is_succ = 7;
-    public static final int IS_SUCC_FIELD_NUMBER = 7;
+    // optional bool is_succ = 8;
+    public static final int IS_SUCC_FIELD_NUMBER = 8;
     private boolean isSucc_;
     /**
-     * <code>optional bool is_succ = 7;</code>
+     * <code>optional bool is_succ = 8;</code>
      *
      * <pre>
      * 是否成功
@@ -483,7 +505,7 @@ public final class PBMessagePro {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional bool is_succ = 7;</code>
+     * <code>optional bool is_succ = 8;</code>
      *
      * <pre>
      * 是否成功
@@ -493,11 +515,11 @@ public final class PBMessagePro {
       return isSucc_;
     }
 
-    // optional bool is_return = 8 [default = true];
-    public static final int IS_RETURN_FIELD_NUMBER = 8;
+    // optional bool is_return = 9 [default = true];
+    public static final int IS_RETURN_FIELD_NUMBER = 9;
     private boolean isReturn_;
     /**
-     * <code>optional bool is_return = 8 [default = true];</code>
+     * <code>optional bool is_return = 9 [default = true];</code>
      *
      * <pre>
      * 是否需要应答
@@ -507,7 +529,7 @@ public final class PBMessagePro {
       return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional bool is_return = 8 [default = true];</code>
+     * <code>optional bool is_return = 9 [default = true];</code>
      *
      * <pre>
      * 是否需要应答
@@ -520,7 +542,8 @@ public final class PBMessagePro {
     private void initFields() {
       cmd_ = 0;
       seq_ = 0;
-      id_ = "";
+      playerId_ = 0;
+      playerIds_ = java.util.Collections.emptyList();
       status_ = 0;
       data_ = com.google.protobuf.ByteString.EMPTY;
       sid_ = 0;
@@ -546,22 +569,25 @@ public final class PBMessagePro {
         output.writeInt32(2, seq_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getIdBytes());
+        output.writeInt32(3, playerId_);
+      }
+      for (int i = 0; i < playerIds_.size(); i++) {
+        output.writeInt32(4, playerIds_.get(i));
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, status_);
+        output.writeInt32(5, status_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, data_);
+        output.writeBytes(6, data_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, sid_);
+        output.writeInt32(7, sid_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeBool(7, isSucc_);
+        output.writeBool(8, isSucc_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeBool(8, isReturn_);
+        output.writeBool(9, isReturn_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -582,27 +608,36 @@ public final class PBMessagePro {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getIdBytes());
+          .computeInt32Size(3, playerId_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < playerIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(playerIds_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getPlayerIdsList().size();
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, status_);
+          .computeInt32Size(5, status_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, data_);
+          .computeBytesSize(6, data_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, sid_);
+          .computeInt32Size(7, sid_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, isSucc_);
+          .computeBoolSize(8, isSucc_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(8, isReturn_);
+          .computeBoolSize(9, isReturn_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -724,18 +759,20 @@ public final class PBMessagePro {
         bitField0_ = (bitField0_ & ~0x00000001);
         seq_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        id_ = "";
+        playerId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        status_ = 0;
+        playerIds_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000008);
-        data_ = com.google.protobuf.ByteString.EMPTY;
+        status_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        sid_ = 0;
+        data_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000020);
-        isSucc_ = false;
+        sid_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        isReturn_ = true;
+        isSucc_ = false;
         bitField0_ = (bitField0_ & ~0x00000080);
+        isReturn_ = true;
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
 
@@ -775,24 +812,29 @@ public final class PBMessagePro {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.id_ = id_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        result.playerId_ = playerId_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          playerIds_ = java.util.Collections.unmodifiableList(playerIds_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.playerIds_ = playerIds_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000008;
         }
         result.status_ = status_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000010;
         }
         result.data_ = data_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000020;
         }
         result.sid_ = sid_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000040;
         }
         result.isSucc_ = isSucc_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000080;
         }
         result.isReturn_ = isReturn_;
@@ -818,9 +860,17 @@ public final class PBMessagePro {
         if (other.hasSeq()) {
           setSeq(other.getSeq());
         }
-        if (other.hasId()) {
-          bitField0_ |= 0x00000004;
-          id_ = other.id_;
+        if (other.hasPlayerId()) {
+          setPlayerId(other.getPlayerId());
+        }
+        if (!other.playerIds_.isEmpty()) {
+          if (playerIds_.isEmpty()) {
+            playerIds_ = other.playerIds_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensurePlayerIdsIsMutable();
+            playerIds_.addAll(other.playerIds_);
+          }
           onChanged();
         }
         if (other.hasStatus()) {
@@ -963,118 +1013,135 @@ public final class PBMessagePro {
         return this;
       }
 
-      // optional string id = 3;
-      private java.lang.Object id_ = "";
+      // optional int32 playerId = 3;
+      private int playerId_ ;
       /**
-       * <code>optional string id = 3;</code>
+       * <code>optional int32 playerId = 3;</code>
        *
        * <pre>
        * ID
        * </pre>
        */
-      public boolean hasId() {
+      public boolean hasPlayerId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string id = 3;</code>
+       * <code>optional int32 playerId = 3;</code>
        *
        * <pre>
        * ID
        * </pre>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getPlayerId() {
+        return playerId_;
       }
       /**
-       * <code>optional string id = 3;</code>
+       * <code>optional int32 playerId = 3;</code>
        *
        * <pre>
        * ID
        * </pre>
        */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string id = 3;</code>
-       *
-       * <pre>
-       * ID
-       * </pre>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        id_ = value;
+      public Builder setPlayerId(int value) {
+        bitField0_ |= 0x00000004;
+        playerId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string id = 3;</code>
+       * <code>optional int32 playerId = 3;</code>
        *
        * <pre>
        * ID
        * </pre>
        */
-      public Builder clearId() {
+      public Builder clearPlayerId() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string id = 3;</code>
-       *
-       * <pre>
-       * ID
-       * </pre>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        id_ = value;
+        playerId_ = 0;
         onChanged();
         return this;
       }
 
-      // optional int32 status = 4;
+      // repeated int32 playerIds = 4;
+      private java.util.List<java.lang.Integer> playerIds_ = java.util.Collections.emptyList();
+      private void ensurePlayerIdsIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          playerIds_ = new java.util.ArrayList<java.lang.Integer>(playerIds_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public java.util.List<java.lang.Integer>
+          getPlayerIdsList() {
+        return java.util.Collections.unmodifiableList(playerIds_);
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public int getPlayerIdsCount() {
+        return playerIds_.size();
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public int getPlayerIds(int index) {
+        return playerIds_.get(index);
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public Builder setPlayerIds(
+          int index, int value) {
+        ensurePlayerIdsIsMutable();
+        playerIds_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public Builder addPlayerIds(int value) {
+        ensurePlayerIdsIsMutable();
+        playerIds_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public Builder addAllPlayerIds(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensurePlayerIdsIsMutable();
+        super.addAll(values, playerIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 playerIds = 4;</code>
+       */
+      public Builder clearPlayerIds() {
+        playerIds_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+
+      // optional int32 status = 5;
       private int status_ ;
       /**
-       * <code>optional int32 status = 4;</code>
+       * <code>optional int32 status = 5;</code>
        *
        * <pre>
        * 状态
        * </pre>
        */
       public boolean hasStatus() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional int32 status = 4;</code>
+       * <code>optional int32 status = 5;</code>
        *
        * <pre>
        * 状态
@@ -1084,46 +1151,46 @@ public final class PBMessagePro {
         return status_;
       }
       /**
-       * <code>optional int32 status = 4;</code>
+       * <code>optional int32 status = 5;</code>
        *
        * <pre>
        * 状态
        * </pre>
        */
       public Builder setStatus(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         status_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 status = 4;</code>
+       * <code>optional int32 status = 5;</code>
        *
        * <pre>
        * 状态
        * </pre>
        */
       public Builder clearStatus() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         status_ = 0;
         onChanged();
         return this;
       }
 
-      // optional bytes data = 5;
+      // optional bytes data = 6;
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>optional bytes data = 5;</code>
+       * <code>optional bytes data = 6;</code>
        *
        * <pre>
        * 数据
        * </pre>
        */
       public boolean hasData() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional bytes data = 5;</code>
+       * <code>optional bytes data = 6;</code>
        *
        * <pre>
        * 数据
@@ -1133,7 +1200,7 @@ public final class PBMessagePro {
         return data_;
       }
       /**
-       * <code>optional bytes data = 5;</code>
+       * <code>optional bytes data = 6;</code>
        *
        * <pre>
        * 数据
@@ -1143,39 +1210,39 @@ public final class PBMessagePro {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         data_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bytes data = 5;</code>
+       * <code>optional bytes data = 6;</code>
        *
        * <pre>
        * 数据
        * </pre>
        */
       public Builder clearData() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         data_ = getDefaultInstance().getData();
         onChanged();
         return this;
       }
 
-      // optional int32 sid = 6;
+      // optional int32 sid = 7;
       private int sid_ ;
       /**
-       * <code>optional int32 sid = 6;</code>
+       * <code>optional int32 sid = 7;</code>
        *
        * <pre>
        * 唯一的SessionId
        * </pre>
        */
       public boolean hasSid() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional int32 sid = 6;</code>
+       * <code>optional int32 sid = 7;</code>
        *
        * <pre>
        * 唯一的SessionId
@@ -1185,46 +1252,46 @@ public final class PBMessagePro {
         return sid_;
       }
       /**
-       * <code>optional int32 sid = 6;</code>
+       * <code>optional int32 sid = 7;</code>
        *
        * <pre>
        * 唯一的SessionId
        * </pre>
        */
       public Builder setSid(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         sid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 sid = 6;</code>
+       * <code>optional int32 sid = 7;</code>
        *
        * <pre>
        * 唯一的SessionId
        * </pre>
        */
       public Builder clearSid() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         sid_ = 0;
         onChanged();
         return this;
       }
 
-      // optional bool is_succ = 7;
+      // optional bool is_succ = 8;
       private boolean isSucc_ ;
       /**
-       * <code>optional bool is_succ = 7;</code>
+       * <code>optional bool is_succ = 8;</code>
        *
        * <pre>
        * 是否成功
        * </pre>
        */
       public boolean hasIsSucc() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional bool is_succ = 7;</code>
+       * <code>optional bool is_succ = 8;</code>
        *
        * <pre>
        * 是否成功
@@ -1234,46 +1301,46 @@ public final class PBMessagePro {
         return isSucc_;
       }
       /**
-       * <code>optional bool is_succ = 7;</code>
+       * <code>optional bool is_succ = 8;</code>
        *
        * <pre>
        * 是否成功
        * </pre>
        */
       public Builder setIsSucc(boolean value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         isSucc_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool is_succ = 7;</code>
+       * <code>optional bool is_succ = 8;</code>
        *
        * <pre>
        * 是否成功
        * </pre>
        */
       public Builder clearIsSucc() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         isSucc_ = false;
         onChanged();
         return this;
       }
 
-      // optional bool is_return = 8 [default = true];
+      // optional bool is_return = 9 [default = true];
       private boolean isReturn_ = true;
       /**
-       * <code>optional bool is_return = 8 [default = true];</code>
+       * <code>optional bool is_return = 9 [default = true];</code>
        *
        * <pre>
        * 是否需要应答
        * </pre>
        */
       public boolean hasIsReturn() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional bool is_return = 8 [default = true];</code>
+       * <code>optional bool is_return = 9 [default = true];</code>
        *
        * <pre>
        * 是否需要应答
@@ -1283,27 +1350,27 @@ public final class PBMessagePro {
         return isReturn_;
       }
       /**
-       * <code>optional bool is_return = 8 [default = true];</code>
+       * <code>optional bool is_return = 9 [default = true];</code>
        *
        * <pre>
        * 是否需要应答
        * </pre>
        */
       public Builder setIsReturn(boolean value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         isReturn_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool is_return = 8 [default = true];</code>
+       * <code>optional bool is_return = 9 [default = true];</code>
        *
        * <pre>
        * 是否需要应答
        * </pre>
        */
       public Builder clearIsReturn() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         isReturn_ = true;
         onChanged();
         return this;
@@ -1334,12 +1401,12 @@ public final class PBMessagePro {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017PBMessage.proto\022\013NetProtocol\"\206\001\n\tPBMes" +
-      "sage\022\013\n\003cmd\030\001 \001(\005\022\013\n\003seq\030\002 \001(\005\022\n\n\002id\030\003 \001" +
-      "(\t\022\016\n\006status\030\004 \001(\005\022\014\n\004data\030\005 \001(\014\022\013\n\003sid\030" +
-      "\006 \001(\005\022\017\n\007is_succ\030\007 \001(\010\022\027\n\tis_return\030\010 \001(" +
-      "\010:\004trueB\'\n\025cn.gs.network.messageB\014PBMess" +
-      "ageProH\001"
+      "\n\017PBMessage.proto\022\013NetProtocol\"\237\001\n\tPBMes" +
+      "sage\022\013\n\003cmd\030\001 \001(\005\022\013\n\003seq\030\002 \001(\005\022\020\n\010player" +
+      "Id\030\003 \001(\005\022\021\n\tplayerIds\030\004 \003(\005\022\016\n\006status\030\005 " +
+      "\001(\005\022\014\n\004data\030\006 \001(\014\022\013\n\003sid\030\007 \001(\005\022\017\n\007is_suc" +
+      "c\030\010 \001(\010\022\027\n\tis_return\030\t \001(\010:\004trueB\'\n\025cn.g" +
+      "s.network.messageB\014PBMessageProH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1351,7 +1418,7 @@ public final class PBMessagePro {
           internal_static_NetProtocol_PBMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_NetProtocol_PBMessage_descriptor,
-              new java.lang.String[] { "Cmd", "Seq", "Id", "Status", "Data", "Sid", "IsSucc", "IsReturn", });
+              new java.lang.String[] { "Cmd", "Seq", "PlayerId", "PlayerIds", "Status", "Data", "Sid", "IsSucc", "IsReturn", });
           return null;
         }
       };

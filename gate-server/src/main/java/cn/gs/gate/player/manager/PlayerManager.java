@@ -1,5 +1,7 @@
 package cn.gs.gate.player.manager;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import cn.gs.gate.Player;
 
 /**
@@ -13,7 +15,12 @@ import cn.gs.gate.Player;
  */
 public class PlayerManager {
 
+	private static ConcurrentHashMap<Integer, Player> players = new ConcurrentHashMap<Integer, Player>();
 	public static Player getPlayer(int pid) {
 		return null;
+	}
+	
+	public static ConcurrentHashMap<Integer, Player> getPlayers() {
+		return players;
 	}
 }

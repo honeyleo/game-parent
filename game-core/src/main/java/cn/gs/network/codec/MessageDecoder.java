@@ -3,6 +3,7 @@ package cn.gs.network.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.util.AttributeKey;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.Message;
 import cn.gs.network.utils.CheckSumStream;
@@ -18,6 +19,7 @@ import cn.gs.network.utils.CheckSumStream;
  */
 public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 
+	private AttributeKey<Integer> key = null;
 	private volatile int pid;
 	/**
 	 * 校验包
@@ -40,6 +42,14 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 		super(4096, 0, 2, 0, 0);
 		checkSumStream = new CheckSumStream();
 	}
+
+	
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		key = AttributeKey.valueOf(String.valueOf(ctx.channel().hashCode()));
+		ctx.fireChannelActive();
+	}
+
 
 	@Override
 	protected ByteBuf extractFrame(ChannelHandlerContext ctx, ByteBuf buffer,
@@ -106,6 +116,9 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         
         byte[] bytes = new byte[size - 4];
         buffer.readBytes(bytes);
+        if(pid == 0) {
+        	pid = ctx.channel().attr(key).get();
+        }
         IMessage message = Message.build(size, msgId, bytes, ctx.channel(), pid);
         ctx.fireChannelRead(message);
 		return null;

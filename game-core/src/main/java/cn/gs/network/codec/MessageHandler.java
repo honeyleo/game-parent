@@ -19,7 +19,7 @@ public class MessageHandler extends SimpleChannelInboundHandler<IMessage>{
 	private IServer server;
 	
 	public MessageHandler(IServer server) {
-		
+		this.server = server;
 	}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, IMessage msg)

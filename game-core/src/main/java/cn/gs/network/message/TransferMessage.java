@@ -18,7 +18,7 @@ public class TransferMessage extends AbstractMessage implements IMessage {
 
 	
 	protected TransferMessage(Channel channel, PBMessage pbMessage) {
-		super(0, pbMessage.getCmd(), pbMessage.getData().toByteArray(), channel, pbMessage.getSid());
+		super(0, pbMessage.getCmd(), pbMessage.getData().toByteArray(), channel, pbMessage.getPlayerId());
 	}
 	
 	public static IMessage transfer(PBMessage pbMessage, Channel channel) {
@@ -27,7 +27,7 @@ public class TransferMessage extends AbstractMessage implements IMessage {
 	
 	public static PBMessage transfer(IMessage message) {
 		PBMessage.Builder builder = PBMessage.newBuilder();
-		builder.setCmd(message.cmd()).setId(String.valueOf(message.pid()))
+		builder.setCmd(message.cmd()).setPlayerId(message.pid())
 				.setData(ByteString.copyFrom(message.data()));
 		return builder.build();
 	}
