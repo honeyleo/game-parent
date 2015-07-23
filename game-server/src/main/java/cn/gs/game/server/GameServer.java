@@ -3,6 +3,7 @@ package cn.gs.game.server;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import cn.gs.network.message.PBMessagePro.PBMessage;
+import cn.gs.network.server.IServer;
 import cn.gs.network.server.impl.ClientServer;
 
 /**
@@ -64,6 +65,11 @@ public class GameServer extends ClientServer {
 
 	@Override
 	public void register(Channel channel, int type) {
-		
+		switch (type) {
+		case IServer.GATE_SERVER:
+			break;
+		case IServer.WORLD_SERVER:
+			break;
+	}
 	}
 }
