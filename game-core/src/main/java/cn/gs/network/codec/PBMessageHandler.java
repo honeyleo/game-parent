@@ -26,5 +26,26 @@ public class PBMessageHandler extends SimpleChannelInboundHandler<PBMessage> {
 			PBMessage msg) throws Exception {
 		server.handle(ctx, msg);
 	}
+	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+		server.channelRegistered(ctx);
+	}
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		server.channelActive(ctx);
+	}
+	@Override
+	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+		server.channelUnregistered(ctx);
+	}
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		server.exceptionCaught(ctx, cause);
+	}
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+		server.userEventTriggered(ctx, evt);
+	}
+	
 
 }

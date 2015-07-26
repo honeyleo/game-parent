@@ -13,12 +13,12 @@ import io.netty.channel.Channel;
  */
 public class Message extends AbstractMessage implements IMessage {
 
-	protected Message(int size, int cmd, byte[] data, Channel channel, int pid) {
-		super(size, cmd, data, channel, pid);
+	protected Message(int size, int cmd, byte[] data, Channel channel, int pid, int status) {
+		super(size, cmd, data, channel, pid, status);
 	}
 	
 	public static IMessage build(int size, int cmd, byte[] data, Channel channel, int pid) {
-		return new Message(size, cmd, data, channel, pid);
+		return new Message(size, cmd, data, channel, pid, 0);
 	}
 
 }

@@ -18,7 +18,7 @@ public class TransferMessage extends AbstractMessage implements IMessage {
 
 	
 	protected TransferMessage(Channel channel, PBMessage pbMessage) {
-		super(0, pbMessage.getCmd(), pbMessage.getData().toByteArray(), channel, pbMessage.getPlayerId());
+		super(0, pbMessage.getCmd(), pbMessage.getData().toByteArray(), channel, pbMessage.getPlayerId(), pbMessage.getStatus());
 	}
 	
 	public static IMessage transfer(PBMessage pbMessage, Channel channel) {

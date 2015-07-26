@@ -47,4 +47,9 @@ public interface IMessage {
 	 * @return
 	 */
 	<T> T parseBody(Class<? extends  Message> clazz) throws InvalidProtocolBufferException;
+	/**
+	 * 响应消息状态
+	 * @return
+	 */
+	int status();
 }

@@ -1,10 +1,11 @@
-package cn.gs.gate;
+package cn.gs.world;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cn.gs.gate.server.handler.ReqRegisterGameServerHandler;
 import cn.gs.handler.Handler;
+import cn.gs.world.server.handler.ReqRegisterWorldForGateHandler;
+import cn.gs.world.server.handler.ReqRegisterWorldHandler;
 
 /**
  * @copyright SHENZHEN RONG WANG HUI ZHI TECHNOLOGY CORP
@@ -19,8 +20,10 @@ public class HandlerMgr {
 
 	protected static final Map<Integer, Handler>  MAP_HANDLERS = new ConcurrentHashMap<Integer, Handler>();
 	static {
-		MAP_HANDLERS.put(21101, new ReqRegisterGameServerHandler());
+		MAP_HANDLERS.put(23101, new ReqRegisterWorldForGateHandler());
+		MAP_HANDLERS.put(23103, new ReqRegisterWorldHandler());
 	}
+	
 	public static Handler getHandler(int cmd) {
 		return MAP_HANDLERS.get(cmd);
 	}

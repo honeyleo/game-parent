@@ -20,7 +20,8 @@ public abstract class Server implements Runnable {
 	}
 
 	protected void init() {
-
+		server_id = serverConfig.getId();
+		server_name = serverConfig.getName();
 	}
 
 	public String getServer_name() {

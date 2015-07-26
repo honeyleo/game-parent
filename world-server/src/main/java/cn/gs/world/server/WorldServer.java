@@ -6,8 +6,17 @@ import io.netty.channel.ChannelHandlerContext;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cn.gs.disruptor.Disruptor;
+import cn.gs.disruptor.MultiThreadDisruptor;
+import cn.gs.handler.Handler;
+import cn.gs.network.message.IMessage;
 import cn.gs.network.message.PBMessagePro.PBMessage;
+import cn.gs.network.message.TransferMessage;
 import cn.gs.network.server.impl.InnerServer;
+import cn.gs.world.HandlerMgr;
 
 /**
  * @copyright SHENZHEN RONG WANG HUI ZHI TECHNOLOGY CORP
@@ -20,6 +29,8 @@ import cn.gs.network.server.impl.InnerServer;
  */
 public class WorldServer extends InnerServer{
 
+	private static final Logger LOG = LoggerFactory.getLogger(WorldServer.class);
+	
 	private static Object obj = new Object();
 	private static WorldServer server;
 	
@@ -29,6 +40,8 @@ public class WorldServer extends InnerServer{
 	private static ConcurrentHashMap<Integer, Vector<Channel>> gateSessions = new ConcurrentHashMap<Integer, Vector<Channel>>();
 		
 	private static final String defaultInnerServerConfig="server-config/inner-server-config.xml";
+	
+	private static Disruptor handlerDisruptor = new MultiThreadDisruptor("Handler_Worker_", 20);
 	
 	public WorldServer(){
 		super(defaultInnerServerConfig);
@@ -57,8 +70,25 @@ public class WorldServer extends InnerServer{
 	}
 
 	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		LOG.info(ctx.channel().toString() + " connected to WorldServer.");
+	}
+
+	@Override
 	public void handle(ChannelHandlerContext ctx, PBMessage pbMessage) {
-		
+		final IMessage message = TransferMessage.transfer(pbMessage, ctx.channel());
+		final Handler handler = HandlerMgr.getHandler(pbMessage.getCmd());
+		if(handler != null && message.status() == 0) {
+			handlerDisruptor.publish(new Runnable() {
+				
+				@Override
+				public void run() {
+					handler.handle(message);
+				}
+			});
+		} else {
+			
+		}
 	}
 	
 	/**

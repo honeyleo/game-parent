@@ -1,9 +1,9 @@
-package cn.gs.gate;
+package cn.gs.game;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cn.gs.gate.server.handler.ReqRegisterGameServerHandler;
+import cn.gs.game.server.handler.ResRegisterGateServerHandler;
 import cn.gs.handler.Handler;
 
 /**
@@ -19,8 +19,9 @@ public class HandlerMgr {
 
 	protected static final Map<Integer, Handler>  MAP_HANDLERS = new ConcurrentHashMap<Integer, Handler>();
 	static {
-		MAP_HANDLERS.put(21101, new ReqRegisterGameServerHandler());
+		MAP_HANDLERS.put(21102, new ResRegisterGateServerHandler());
 	}
+	
 	public static Handler getHandler(int cmd) {
 		return MAP_HANDLERS.get(cmd);
 	}

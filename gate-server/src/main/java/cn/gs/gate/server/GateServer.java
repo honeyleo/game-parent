@@ -16,6 +16,7 @@ import cn.gs.gate.utils.MessageUtil;
 import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.PBMessagePro.PBMessage;
+import cn.gs.network.message.ServerInfo_Protocol.ServerInfoPro;
 import cn.gs.network.message.TransferMessage;
 import cn.gs.network.server.impl.ClientServer;
 import cn.gs.network.server.impl.InnerServer;
@@ -158,7 +159,7 @@ public class GateServer extends NettyServer {
 		public void handle(final ChannelHandlerContext ctx, final PBMessage pbMessage) {
 			final IMessage message = TransferMessage.transfer(pbMessage, ctx.channel());
 			final Handler handler = HandlerMgr.getHandler(pbMessage.getCmd());
-			if(handler != null) {
+			if(handler != null && message.status() == 0) {
 				handlerDisruptor.publish(new Runnable() {
 					
 					@Override
@@ -198,7 +199,7 @@ public class GateServer extends NettyServer {
 		public void handle(ChannelHandlerContext ctx, PBMessage pbMessage) {
 			final IMessage message = TransferMessage.transfer(pbMessage, ctx.channel());
 			final Handler handler = HandlerMgr.getHandler(pbMessage.getCmd());
-			if(handler != null) {
+			if(handler != null && message.status() == 0) {
 				handlerDisruptor.publish(new Runnable() {
 					
 					@Override
@@ -226,8 +227,14 @@ public class GateServer extends NettyServer {
 
 		@Override
 		public void register(Channel channel, int type) {
-			// TODO Auto-generated method stub
 			
+			PBMessage.Builder builder = PBMessage.newBuilder();
+			builder.setCmd(23101);
+			ServerInfoPro.Builder serverInfoBuilder = ServerInfoPro.newBuilder();
+			serverInfoBuilder.setId(getServer_id());
+			serverInfoBuilder.setName(getServer_name());
+			builder.setData(serverInfoBuilder.build().toByteString());
+			channel.writeAndFlush(builder.build());
 		}
 		
 	}

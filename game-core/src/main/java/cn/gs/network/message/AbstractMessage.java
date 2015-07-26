@@ -11,13 +11,15 @@ public abstract class AbstractMessage implements IMessage {
 	private byte[] data;
 	private Channel channel;
 	private int pid;
+	private int status;
 	
-	protected AbstractMessage(int size, int cmd, byte[] data, Channel channel, int pid) {
+	protected AbstractMessage(int size, int cmd, byte[] data, Channel channel, int pid, int status) {
 		this.size = size;
 		this.cmd = cmd;
 		this.data = data;
 		this.channel = channel;
 		this.pid = pid;
+		this.status = status;
 	}
 	
 	@Override
@@ -45,6 +47,10 @@ public abstract class AbstractMessage implements IMessage {
 	@Override
 	public Channel channel() {
 		return channel;
+	}
+	
+	public int status() {
+		return status;
 	}
 	
 	@SuppressWarnings("unchecked")
