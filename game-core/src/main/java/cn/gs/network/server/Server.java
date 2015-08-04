@@ -7,7 +7,7 @@ import cn.gs.network.server.config.ServerConfig;
 public abstract class Server implements Runnable {
 
 	private String server_name;
-	public static int server_id;
+	public int server_id;
 	private String server_web;
 	protected ServerConfig serverConfig;
 	public static final String DEFAULT_MAIN_THREAD = "Main";
@@ -28,7 +28,7 @@ public abstract class Server implements Runnable {
 		return server_name;
 	}
 
-	public static int getServer_id() {
+	public int getServer_id() {
 		return server_id;
 	}
 
