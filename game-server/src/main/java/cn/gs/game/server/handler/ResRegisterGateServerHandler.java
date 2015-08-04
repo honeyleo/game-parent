@@ -19,7 +19,7 @@ public class ResRegisterGateServerHandler implements Handler {
 		try {
 			ServerInfoPro serverInfoPro = ServerInfoPro.parseFrom(message.data());
 			LOG.info("游戏服务器【id={},name={}】注册----》网关服务器【id={},name={}】成功。", 
-					new Object[]{GameServer.getServer_id(), GameServer.getInstance().getServer_name(), serverInfoPro.getId(), serverInfoPro.getName()});
+					new Object[]{GameServer.getInstance().getServer_id(), GameServer.getInstance().getServer_name(), serverInfoPro.getId(), serverInfoPro.getName()});
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}

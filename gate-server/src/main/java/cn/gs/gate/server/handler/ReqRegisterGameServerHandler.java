@@ -21,10 +21,10 @@ public class ReqRegisterGameServerHandler implements Handler {
 			ServerInfoPro serverInfoPro = ServerInfoPro.parseFrom(message.data());
 			GateServer.getInstance().registerGameServer(serverInfoPro.getId(), message.channel());
 			LOG.info("游戏服务器【id={},name={}】注册----》网关服务器【id={},name={}】", new Object[]{serverInfoPro.getId(), serverInfoPro.getName(), 
-					GateServer.getServer_id(), GateServer.getInstance().getServer_name()});
+					GateServer.getInstance().getServer_id(), GateServer.getInstance().getServer_name()});
 			//返回注册成功消息
 			ServerInfoPro.Builder resServerInfoProBuilder = ServerInfoPro.newBuilder();
-			resServerInfoProBuilder.setId(GateServer.getServer_id()).setName(GateServer.getInstance().getServer_name());
+			resServerInfoProBuilder.setId(GateServer.getInstance().getServer_id()).setName(GateServer.getInstance().getServer_name());
 			PBMessage.Builder builder = PBMessage.newBuilder();
 			builder.setCmd(21102).setData(resServerInfoProBuilder.build().toByteString());
 			message.channel().writeAndFlush(builder.build());

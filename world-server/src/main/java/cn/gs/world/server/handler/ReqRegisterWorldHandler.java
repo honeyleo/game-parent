@@ -23,13 +23,13 @@ public class ReqRegisterWorldHandler implements Handler{
 			WorldServer.getInstance().registerGameServer(serverInfoPro.getId(), message.channel());
 			
 			LOG.info("游戏服务器【id={},name={}】注册----》世界服务器【id={},name={}】成功", new Object[]{
-					serverInfoPro.getId(), serverInfoPro.getName(), WorldServer.getServer_id(), WorldServer.getInstance().getServer_name()
+					serverInfoPro.getId(), serverInfoPro.getName(), WorldServer.getInstance().getServer_id(), WorldServer.getInstance().getServer_name()
 			});
 			
 			//返回成功消息
 			PBMessage.Builder resBuilder = PBMessage.newBuilder();
 			ServerInfoPro.Builder builder = ServerInfoPro.newBuilder();
-			builder.setId(WorldServer.getServer_id());
+			builder.setId(WorldServer.getInstance().getServer_id());
 			builder.setName(WorldServer.getInstance().getServer_name());
 			resBuilder.setCmd(23104).setData(builder.build().toByteString());
 			message.channel().writeAndFlush(resBuilder.build());
