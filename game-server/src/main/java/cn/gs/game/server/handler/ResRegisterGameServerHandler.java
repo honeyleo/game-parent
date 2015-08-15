@@ -10,9 +10,9 @@ import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
 import cn.gs.network.message.ServerInfo_Protocol.ServerInfoPro;
 
-public class ResRegisterGateServerHandler implements Handler {
+public class ResRegisterGameServerHandler implements Handler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ResRegisterGateServerHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ResRegisterGameServerHandler.class);
 	
 	@Override
 	public void handle(IMessage message) {

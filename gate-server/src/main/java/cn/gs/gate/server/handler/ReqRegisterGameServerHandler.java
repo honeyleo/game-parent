@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import cn.gs.Cmd;
 import cn.gs.gate.server.GateServer;
 import cn.gs.handler.Handler;
 import cn.gs.network.message.IMessage;
@@ -26,7 +27,7 @@ public class ReqRegisterGameServerHandler implements Handler {
 			ServerInfoPro.Builder resServerInfoProBuilder = ServerInfoPro.newBuilder();
 			resServerInfoProBuilder.setId(GateServer.getInstance().getServer_id()).setName(GateServer.getInstance().getServer_name());
 			PBMessage.Builder builder = PBMessage.newBuilder();
-			builder.setCmd(21102).setData(resServerInfoProBuilder.build().toByteString());
+			builder.setCmd(Cmd.Gate2Game.RES_REGISTER_GAME_SERVER).setData(resServerInfoProBuilder.build().toByteString());
 			message.channel().writeAndFlush(builder.build());
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
