@@ -17,40 +17,5 @@
   		<artifactId>game-core</artifactId>
   		<version>1.0</version>
   	</dependency>
-  	<dependency>
-		<groupId>com.google.protobuf</groupId>
-		<artifactId>protobuf-java</artifactId>
-		<version>2.5.0</version>
-	</dependency>
-	<dependency>   
-	    <groupId>io.netty</groupId>
-	    <artifactId>netty-all</artifactId>    
-	    <version>4.0.23.Final</version> 
-	</dependency>
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>jcl-over-slf4j</artifactId>
-		<version>1.6.4</version>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-core</artifactId>
-		<version>${logback-version}</version>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-classic</artifactId>
-		<version>${logback-version}</version>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-access</artifactId>
-		<version>${logback-version}</version>
-	</dependency>     
-	<dependency>
-		<groupId>com.lmax</groupId>
-		<artifactId>disruptor</artifactId>
-		<version>3.2.1</version>
-	</dependency>
   </dependencies>
 </project>
