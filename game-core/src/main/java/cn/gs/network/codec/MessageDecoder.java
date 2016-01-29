@@ -46,7 +46,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		key = AttributeKey.valueOf(String.valueOf(ctx.channel().hashCode()));
+		key = AttributeKey.valueOf(ctx.channel().id().asLongText());
 		ctx.fireChannelActive();
 	}
 

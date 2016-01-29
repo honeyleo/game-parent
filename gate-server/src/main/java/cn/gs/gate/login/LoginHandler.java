@@ -19,7 +19,7 @@ public class LoginHandler implements Handler {
 	public void handle(IMessage message) {
 		//解包出来验证玩家登录
 		int pid = 0;
-		AttributeKey<Integer> key = AttributeKey.valueOf(String.valueOf(message.channel().hashCode()));
+		AttributeKey<Integer> key = AttributeKey.valueOf(message.channel().id().asLongText());
 		message.channel().attr(key).set(pid);
 	}
 
