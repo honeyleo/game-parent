@@ -17,7 +17,7 @@ public class PlayerManager {
 
 	private static ConcurrentHashMap<Integer, Player> players = new ConcurrentHashMap<Integer, Player>();
 	public static Player getPlayer(int pid) {
-		return null;
+		return players.get(pid);
 	}
 	
 	public static ConcurrentHashMap<Integer, Player> getPlayers() {

@@ -117,7 +117,9 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         byte[] bytes = new byte[size - 4];
         buffer.readBytes(bytes);
         if(pid == 0) {
-        	pid = ctx.channel().attr(key).get();
+        	if(ctx.channel().attr(key) != null && ctx.channel().attr(key).get() != null) {
+        		pid = ctx.channel().attr(key).get();
+        	}
         }
         IMessage message = Message.build(size, msgId, bytes, ctx.channel(), pid);
         ctx.fireChannelRead(message);
